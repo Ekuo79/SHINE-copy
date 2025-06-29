@@ -54,9 +54,12 @@
   background-color: var(--bg-tertiary) !important;
 }
 
-/* Special styling for primary-50 backgrounds (CTA sections) */
+/* Improved styling for primary-50 backgrounds (CTA sections) */
 [data-theme="dark"] .bg-primary-50 {
-  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%) !important;
+  background: linear-gradient(135deg, 
+    rgba(30, 41, 59, 0.95) 0%, 
+    rgba(51, 65, 85, 0.9) 50%,
+    rgba(71, 85, 105, 0.95) 100%) !important;
   position: relative;
 }
 
@@ -67,7 +70,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(15, 23, 42, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.4) 0%, 
+    rgba(30, 41, 59, 0.3) 50%,
+    rgba(51, 65, 85, 0.4) 100%);
   pointer-events: none;
 }
 
@@ -81,7 +87,7 @@
 [data-theme="dark"] .bg-primary-50 .text-neutral-800,
 [data-theme="dark"] .bg-primary-50 .text-neutral-700,
 [data-theme="dark"] .bg-primary-50 .text-neutral-600 {
-  color: white !important;
+  color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .text-neutral-900 {
@@ -106,11 +112,29 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Special styling for cards in CTA sections */
+/* Enhanced styling for cards in CTA sections */
 [data-theme="dark"] .bg-primary-50 .card {
-  background-color: rgba(30, 41, 59, 0.9) !important;
-  border-color: rgba(71, 85, 105, 0.5) !important;
+  background: linear-gradient(135deg, 
+    rgba(30, 41, 59, 0.8) 0%, 
+    rgba(51, 65, 85, 0.7) 100%) !important;
+  border: 1px solid rgba(148, 163, 184, 0.2) !important;
   backdrop-filter: blur(10px);
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.4), 
+    0 4px 6px -4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .bg-primary-50 .card:hover {
+  background: linear-gradient(135deg, 
+    rgba(30, 41, 59, 0.9) 0%, 
+    rgba(51, 65, 85, 0.8) 100%) !important;
+  border-color: rgba(148, 163, 184, 0.3) !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.5), 
+    0 8px 10px -6px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
 
 [data-theme="dark"] .header {
@@ -240,34 +264,44 @@
 
 /* Enhanced button styling in CTA sections */
 [data-theme="dark"] .bg-primary-50 .btn-outline {
-  border-color: white;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(148, 163, 184, 0.6);
+  color: var(--text-primary);
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(8px);
 }
 
 [data-theme="dark"] .bg-primary-50 .btn-outline:hover {
-  background-color: white;
-  color: var(--primary-600);
+  background: rgba(148, 163, 184, 0.9);
+  color: var(--bg-primary);
+  border-color: rgba(148, 163, 184, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .bg-primary-50 .btn-primary {
-  background-color: white;
-  color: var(--primary-600);
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+  color: white;
+  border: none;
 }
 
 [data-theme="dark"] .bg-primary-50 .btn-primary:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: var(--primary-700);
+  background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-800) 100%);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .bg-primary-50 .btn-secondary {
-  background-color: var(--secondary-600);
+  background: linear-gradient(135deg, var(--secondary-600) 0%, var(--secondary-700) 100%);
   color: white;
+  border: none;
 }
 
 [data-theme="dark"] .bg-primary-50 .btn-secondary:hover {
-  background-color: var(--secondary-700);
+  background: linear-gradient(135deg, var(--secondary-700) 0%, var(--secondary-800) 100%);
   color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Dark mode form elements */
@@ -286,29 +320,41 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Icon background colors in dark mode */
+/* Icon background colors in dark mode - more subtle */
 [data-theme="dark"] .bg-primary-100 {
-  background-color: rgba(59, 130, 246, 0.2) !important;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.15) 0%, 
+    rgba(37, 99, 235, 0.2) 100%) !important;
 }
 
 [data-theme="dark"] .bg-secondary-100 {
-  background-color: rgba(249, 115, 22, 0.2) !important;
+  background: linear-gradient(135deg, 
+    rgba(249, 115, 22, 0.15) 0%, 
+    rgba(234, 88, 12, 0.2) 100%) !important;
 }
 
 [data-theme="dark"] .bg-success-100 {
-  background-color: rgba(16, 185, 129, 0.2) !important;
+  background: linear-gradient(135deg, 
+    rgba(16, 185, 129, 0.15) 0%, 
+    rgba(5, 150, 105, 0.2) 100%) !important;
 }
 
 [data-theme="dark"] .bg-warning-100 {
-  background-color: rgba(245, 158, 11, 0.2) !important;
+  background: linear-gradient(135deg, 
+    rgba(245, 158, 11, 0.15) 0%, 
+    rgba(217, 119, 6, 0.2) 100%) !important;
 }
 
 [data-theme="dark"] .bg-error-100 {
-  background-color: rgba(239, 68, 68, 0.2) !important;
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 0.15) 0%, 
+    rgba(220, 38, 38, 0.2) 100%) !important;
 }
 
 [data-theme="dark"] .bg-neutral-200 {
-  background-color: rgba(71, 85, 105, 0.3) !important;
+  background: linear-gradient(135deg, 
+    rgba(71, 85, 105, 0.2) 0%, 
+    rgba(100, 116, 139, 0.25) 100%) !important;
 }
 
 /* Ensure proper text colors for icon containers */
@@ -321,26 +367,64 @@
 }
 
 [data-theme="dark"] .text-success-600 {
-  color: var(--success-400) !important;
+  color: #34d399 !important;
 }
 
 [data-theme="dark"] .text-warning-600 {
-  color: var(--warning-400) !important;
+  color: #fbbf24 !important;
 }
 
 [data-theme="dark"] .text-error-600 {
-  color: var(--error-400) !important;
+  color: #f87171 !important;
 }
 
-/* Special handling for mission statement sections */
+[data-theme="dark"] .text-neutral-600 {
+  color: var(--text-tertiary) !important;
+}
+
+/* Special handling for mission statement sections in CTA areas */
 [data-theme="dark"] .bg-primary-50 .bg-primary-100,
 [data-theme="dark"] .bg-primary-50 .bg-secondary-100,
-[data-theme="dark"] .bg-primary-50 .bg-success-100 {
-  background-color: rgba(255, 255, 255, 0.15) !important;
+[data-theme="dark"] .bg-primary-50 .bg-success-100,
+[data-theme="dark"] .bg-primary-50 .bg-warning-100,
+[data-theme="dark"] .bg-primary-50 .bg-error-100,
+[data-theme="dark"] .bg-primary-50 .bg-neutral-200 {
+  background: linear-gradient(135deg, 
+    rgba(148, 163, 184, 0.15) 0%, 
+    rgba(203, 213, 225, 0.2) 100%) !important;
+  border: 1px solid rgba(148, 163, 184, 0.1);
 }
 
 [data-theme="dark"] .bg-primary-50 .text-primary-600,
 [data-theme="dark"] .bg-primary-50 .text-secondary-600,
-[data-theme="dark"] .bg-primary-50 .text-success-600 {
-  color: white !important;
+[data-theme="dark"] .bg-primary-50 .text-success-600,
+[data-theme="dark"] .bg-primary-50 .text-warning-600,
+[data-theme="dark"] .bg-primary-50 .text-error-600,
+[data-theme="dark"] .bg-primary-50 .text-neutral-600 {
+  color: var(--text-primary) !important;
+}
+
+/* Enhanced link styling in CTA sections */
+[data-theme="dark"] .bg-primary-50 a {
+  color: rgba(148, 163, 184, 0.9);
+  transition: all var(--transition-fast);
+}
+
+[data-theme="dark"] .bg-primary-50 a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+/* Ensure proper contrast for all text elements in CTA sections */
+[data-theme="dark"] .bg-primary-50 h1,
+[data-theme="dark"] .bg-primary-50 h2,
+[data-theme="dark"] .bg-primary-50 h3,
+[data-theme="dark"] .bg-primary-50 h4,
+[data-theme="dark"] .bg-primary-50 h5,
+[data-theme="dark"] .bg-primary-50 h6 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .bg-primary-50 p {
+  color: var(--text-secondary) !important;
 }
