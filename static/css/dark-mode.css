@@ -54,6 +54,36 @@
   background-color: var(--bg-tertiary) !important;
 }
 
+/* Special styling for primary-50 backgrounds (CTA sections) */
+[data-theme="dark"] .bg-primary-50 {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%) !important;
+  position: relative;
+}
+
+[data-theme="dark"] .bg-primary-50::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.3);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .bg-primary-50 * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure text in CTA sections remains readable */
+[data-theme="dark"] .bg-primary-50 .text-neutral-900,
+[data-theme="dark"] .bg-primary-50 .text-neutral-800,
+[data-theme="dark"] .bg-primary-50 .text-neutral-700,
+[data-theme="dark"] .bg-primary-50 .text-neutral-600 {
+  color: white !important;
+}
+
 [data-theme="dark"] .text-neutral-900 {
   color: var(--text-primary) !important;
 }
@@ -74,6 +104,13 @@
   background-color: var(--card-bg) !important;
   border-color: var(--border-color) !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Special styling for cards in CTA sections */
+[data-theme="dark"] .bg-primary-50 .card {
+  background-color: rgba(30, 41, 59, 0.9) !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+  backdrop-filter: blur(10px);
 }
 
 [data-theme="dark"] .header {
@@ -201,6 +238,38 @@
   color: var(--bg-primary);
 }
 
+/* Enhanced button styling in CTA sections */
+[data-theme="dark"] .bg-primary-50 .btn-outline {
+  border-color: white;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .bg-primary-50 .btn-outline:hover {
+  background-color: white;
+  color: var(--primary-600);
+}
+
+[data-theme="dark"] .bg-primary-50 .btn-primary {
+  background-color: white;
+  color: var(--primary-600);
+}
+
+[data-theme="dark"] .bg-primary-50 .btn-primary:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--primary-700);
+}
+
+[data-theme="dark"] .bg-primary-50 .btn-secondary {
+  background-color: var(--secondary-600);
+  color: white;
+}
+
+[data-theme="dark"] .bg-primary-50 .btn-secondary:hover {
+  background-color: var(--secondary-700);
+  color: white;
+}
+
 /* Dark mode form elements */
 [data-theme="dark"] input,
 [data-theme="dark"] textarea,
@@ -215,4 +284,63 @@
 [data-theme="dark"] select:focus {
   border-color: var(--primary-400);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Icon background colors in dark mode */
+[data-theme="dark"] .bg-primary-100 {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+[data-theme="dark"] .bg-secondary-100 {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+[data-theme="dark"] .bg-success-100 {
+  background-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+[data-theme="dark"] .bg-warning-100 {
+  background-color: rgba(245, 158, 11, 0.2) !important;
+}
+
+[data-theme="dark"] .bg-error-100 {
+  background-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+[data-theme="dark"] .bg-neutral-200 {
+  background-color: rgba(71, 85, 105, 0.3) !important;
+}
+
+/* Ensure proper text colors for icon containers */
+[data-theme="dark"] .text-primary-600 {
+  color: var(--primary-400) !important;
+}
+
+[data-theme="dark"] .text-secondary-600 {
+  color: var(--secondary-400) !important;
+}
+
+[data-theme="dark"] .text-success-600 {
+  color: var(--success-400) !important;
+}
+
+[data-theme="dark"] .text-warning-600 {
+  color: var(--warning-400) !important;
+}
+
+[data-theme="dark"] .text-error-600 {
+  color: var(--error-400) !important;
+}
+
+/* Special handling for mission statement sections */
+[data-theme="dark"] .bg-primary-50 .bg-primary-100,
+[data-theme="dark"] .bg-primary-50 .bg-secondary-100,
+[data-theme="dark"] .bg-primary-50 .bg-success-100 {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .bg-primary-50 .text-primary-600,
+[data-theme="dark"] .bg-primary-50 .text-secondary-600,
+[data-theme="dark"] .bg-primary-50 .text-success-600 {
+  color: white !important;
 }
