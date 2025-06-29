@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{% static 'css/modern-base.css' %}">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dark-mode.css' %}">
 </head>
 <body>
     <!-- Header -->
@@ -41,10 +42,18 @@
                         </div>
                     </li>
                 </ul>
+                <div class="header-actions">
+                    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle dark mode">
+                        <i class="fas fa-moon" id="darkModeIcon"></i>
+                    </button>
+                </div>
             </nav>
             
             <!-- Mobile Navigation -->
             <nav class="nav-mobile">
+                <button class="dark-mode-toggle" id="mobileDarkModeToggle" title="Toggle dark mode">
+                    <i class="fas fa-moon" id="mobileDarkModeIcon"></i>
+                </button>
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -248,6 +257,39 @@
 
     <!-- JavaScript -->
     <script>
+        // Dark Mode Toggle Functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mobileDarkModeToggle = document.getElementById('mobileDarkModeToggle');
+        const darkModeIcon = document.getElementById('darkModeIcon');
+        const mobileDarkModeIcon = document.getElementById('mobileDarkModeIcon');
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        // Update icons based on current theme
+        function updateIcons(theme) {
+            const iconClass = theme === 'dark' ? 'fa-sun' : 'fa-moon';
+            darkModeIcon.className = `fas ${iconClass}`;
+            mobileDarkModeIcon.className = `fas ${iconClass}`;
+        }
+        
+        updateIcons(currentTheme);
+        
+        // Toggle dark mode function
+        function toggleDarkMode() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons(newTheme);
+        }
+        
+        // Add event listeners
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+        mobileDarkModeToggle.addEventListener('click', toggleDarkMode);
+        
         // Mobile menu toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mobileMenu = document.getElementById('mobileMenu');

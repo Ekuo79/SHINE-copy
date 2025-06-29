@@ -37,7 +37,7 @@
 .nav-desktop {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-6);
 }
 
 .nav-links {
@@ -67,6 +67,13 @@
 .nav-link.active {
   color: white;
   background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Header Actions (Dark Mode Toggle) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 /* Dropdown Styles */
@@ -208,6 +215,64 @@
   color: white;
 }
 
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.dark-mode-toggle i {
+  transition: transform var(--transition-normal);
+}
+
+.dark-mode-toggle:hover i {
+  transform: rotate(15deg);
+}
+
+/* Mobile dark mode toggle */
+.mobile-dark-mode-toggle {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  padding: var(--space-3) var(--space-4);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.mobile-dark-mode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.mobile-dark-mode-toggle i {
+  margin-right: var(--space-2);
+  width: 20px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav-desktop {
@@ -215,7 +280,9 @@
   }
   
   .nav-mobile {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
   }
   
   .header-container {
