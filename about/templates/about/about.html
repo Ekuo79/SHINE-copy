@@ -19,6 +19,62 @@
     <link rel="stylesheet" href="{% static 'css/modern-base.css' %}">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    
+    <style>
+        /* About page specific image styles */
+        .about-image {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            object-fit: cover;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+            image-rendering: auto;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        
+        .team-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            image-rendering: auto;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 12rem;
+            object-fit: cover;
+            object-position: center;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            image-rendering: auto;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        
+        .image-container {
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            background-color: var(--neutral-100);
+        }
+        
+        .team-image-container {
+            overflow: hidden;
+            border-radius: 50%;
+            background-color: var(--neutral-100);
+            box-shadow: var(--shadow-lg);
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -89,8 +145,8 @@
                 <!-- Team Member 1 -->
                 <div class="card text-center">
                     <div class="card-body">
-                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-lg">
-                            <img src="/static/images/Julianaa.jpg" alt="Juliana Lucas" class="w-full h-full object-cover">
+                        <div class="w-32 h-32 mx-auto mb-6 team-image-container">
+                            <img src="{% static 'images/Julianaa.jpg' %}" alt="Juliana Lucas" class="team-image">
                         </div>
                         <h3 class="text-xl font-semibold mb-2 text-neutral-900">Juliana Lucas</h3>
                         <p class="text-neutral-600 mb-4">Developer</p>
@@ -103,8 +159,8 @@
                 <!-- Team Member 2 -->
                 <div class="card text-center">
                     <div class="card-body">
-                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-lg">
-                            <img src="/static/images/Eric.png" alt="Eric Kuo" class="w-full h-full object-cover">
+                        <div class="w-32 h-32 mx-auto mb-6 team-image-container">
+                            <img src="{% static 'images/Eric.png' %}" alt="Eric Kuo" class="team-image">
                         </div>
                         <h3 class="text-xl font-semibold mb-2 text-neutral-900">Eric Kuo</h3>
                         <p class="text-neutral-600 mb-4">Developer</p>
@@ -117,8 +173,8 @@
                 <!-- Team Member 3 -->
                 <div class="card text-center">
                     <div class="card-body">
-                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-lg">
-                            <img src="/static/images/Shaina.png" alt="Shaina Desroches" class="w-full h-full object-cover">
+                        <div class="w-32 h-32 mx-auto mb-6 team-image-container">
+                            <img src="{% static 'images/Shaina.png' %}" alt="Shaina Desroches" class="team-image">
                         </div>
                         <h3 class="text-xl font-semibold mb-2 text-neutral-900">Shaina Desroches</h3>
                         <p class="text-neutral-600 mb-4">Designer</p>
@@ -131,8 +187,8 @@
                 <!-- Team Member 4 -->
                 <div class="card text-center">
                     <div class="card-body">
-                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-lg">
-                            <img src="/static/images/Leila.jpg" alt="Leila Ouhri" class="w-full h-full object-cover">
+                        <div class="w-32 h-32 mx-auto mb-6 team-image-container">
+                            <img src="{% static 'images/Leila.jpg' %}" alt="Leila Ouhri" class="team-image">
                         </div>
                         <h3 class="text-xl font-semibold mb-2 text-neutral-900">Leila Ouhri</h3>
                         <p class="text-neutral-600 mb-4">Public Affairs</p>
@@ -152,10 +208,16 @@
                 <!-- Image Gallery -->
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-4">
-                        <img src="/static/images/map.png" alt="FCI Meeting" class="rounded-lg shadow-md w-full h-48 object-cover">
-                        <img src="/static/images/fcigroup.jpg" alt="FCI Group" class="rounded-lg shadow-md w-full h-48 object-cover">
+                        <div class="image-container">
+                            <img src="{% static 'images/map.png' %}" alt="FCI Meeting" class="gallery-image">
+                        </div>
+                        <div class="image-container">
+                            <img src="{% static 'images/fcigroup.jpg' %}" alt="FCI Group" class="gallery-image">
+                        </div>
                     </div>
-                    <img src="/static/images/fcitalk.png" alt="FCI Talk" class="rounded-lg shadow-md w-full h-48 object-cover">
+                    <div class="image-container">
+                        <img src="{% static 'images/fcitalk.png' %}" alt="FCI Talk" class="gallery-image">
+                    </div>
                 </div>
                 
                 <!-- Content -->
