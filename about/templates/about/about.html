@@ -21,32 +21,20 @@
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     
     <style>
-        /* About page specific image styles */
-        .about-image {
-            width: 100%;
-            height: auto;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            object-fit: cover;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-            image-rendering: auto;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-        
+        /* Clean image rendering without artifacts */
         .team-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
             border-radius: 50%;
+            /* Remove problematic image rendering properties */
             image-rendering: auto;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
+            /* Smooth rendering */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            /* Prevent compression artifacts */
+            image-rendering: -webkit-optimize-contrast;
         }
         
         .gallery-image {
@@ -56,16 +44,10 @@
             object-position: center;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
+            /* Clean rendering without artifacts */
             image-rendering: auto;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-        
-        .image-container {
-            overflow: hidden;
-            border-radius: var(--radius-lg);
-            background-color: var(--neutral-100);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .team-image-container {
@@ -73,6 +55,25 @@
             border-radius: 50%;
             background-color: var(--neutral-100);
             box-shadow: var(--shadow-lg);
+            /* Ensure clean container */
+            position: relative;
+        }
+        
+        .image-container {
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            background-color: var(--neutral-100);
+            position: relative;
+        }
+        
+        /* Prevent any scaling artifacts */
+        .team-image-container img,
+        .image-container img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border: none;
+            outline: none;
         }
     </style>
 </head>
@@ -146,7 +147,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="w-32 h-32 mx-auto mb-6 team-image-container">
-                            <img src="{% static 'images/Julianaa.jpg' %}" alt="Juliana Lucas" class="team-image">
+                            <img src="{% static 'images/Julianaa.jpg' %}" alt="Juliana Lucas" class="team-image" loading="lazy">
                         </div>
                         <h3 class="text-xl font-semibold mb-2 text-neutral-900">Juliana Lucas</h3>
                         <p class="text-neutral-600 mb-4">Developer</p>
@@ -160,7 +161,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="w-32 h-32 mx-auto mb-6 team-image-container">
-                            <img src="{% static 'images/Eric.png' %}" alt="Eric Kuo" class="team-image">
+                            <img src="{% static 'images/Eric.png' %}" alt="Eric Kuo" class="team-image" loading="lazy">
                         </div>
                         <h3 class="text-xl font-semibold mb-2 text-neutral-900">Eric Kuo</h3>
                         <p class="text-neutral-600 mb-4">Developer</p>
@@ -174,7 +175,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="w-32 h-32 mx-auto mb-6 team-image-container">
-                            <img src="{% static 'images/Shaina.png' %}" alt="Shaina Desroches" class="team-image">
+                            <img src="{% static 'images/Shaina.png' %}" alt="Shaina Desroches" class="team-image" loading="lazy">
                         </div>
                         <h3 class="text-xl font-semibold mb-2 text-neutral-900">Shaina Desroches</h3>
                         <p class="text-neutral-600 mb-4">Designer</p>
@@ -188,7 +189,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="w-32 h-32 mx-auto mb-6 team-image-container">
-                            <img src="{% static 'images/Leila.jpg' %}" alt="Leila Ouhri" class="team-image">
+                            <img src="{% static 'images/Leila.jpg' %}" alt="Leila Ouhri" class="team-image" loading="lazy">
                         </div>
                         <h3 class="text-xl font-semibold mb-2 text-neutral-900">Leila Ouhri</h3>
                         <p class="text-neutral-600 mb-4">Public Affairs</p>
@@ -209,14 +210,14 @@
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="image-container">
-                            <img src="{% static 'images/map.png' %}" alt="FCI Meeting" class="gallery-image">
+                            <img src="{% static 'images/map.png' %}" alt="FCI Meeting" class="gallery-image" loading="lazy">
                         </div>
                         <div class="image-container">
-                            <img src="{% static 'images/fcigroup.jpg' %}" alt="FCI Group" class="gallery-image">
+                            <img src="{% static 'images/fcigroup.jpg' %}" alt="FCI Group" class="gallery-image" loading="lazy">
                         </div>
                     </div>
                     <div class="image-container">
-                        <img src="{% static 'images/fcitalk.png' %}" alt="FCI Talk" class="gallery-image">
+                        <img src="{% static 'images/fcitalk.png' %}" alt="FCI Talk" class="gallery-image" loading="lazy">
                     </div>
                 </div>
                 
