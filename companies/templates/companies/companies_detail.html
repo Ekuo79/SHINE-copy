@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Companies</title>
+    <link rel="stylesheet" href="{% static 'css/companies_detail.css' %}">
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <div class="header" id="myHeader">
+        <h2 style="font-size: 1.2em; margin-left: 70px; color:white; font-family: Segoe UI,Arial,sans-serif; font-weight: 400;"><a href="/" style="color: white; text-decoration: none;">S.H.I.N.E</a></h2>
+        <div class="navigation">
+            <ul>
+                <li ><a style="color:white" href="/home">Home</a></li>
+                <li ><a style="color:white" href="/about">About</a> </li>
+                <li ><a style="color:white" href="/apply">Apply</a> </li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn" style="color:white">Companies</a>
+                    <div class="dropdown-content">
+                        {% for company in companies %}
+                            <a class="companies" href="{% url 'companies.detail' company.id %}">{{ company.title }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div class="hold">
+        <h3 id="company-title">{{company.title}}</h3>
+        <div class="blue-box">
+            {% if company.logo_path %}
+                <img src="{% static company.logo_path %}" alt="{{ company.title }} logo" class="logo-overlay">
+            {% endif %}
+            <h3 id="company-title">{{company.title}}</h3><h3>About</h3>
+            <p id="abouttxt">{{company.about}}</p>
+        </div>
+    </div>
+
+
+    <div class="hold">
+        <div class="score">
+            <ul>
+                <li>
+                    <h2>Accessibility</h2>
+                    <div class="icons">
+                        <h3>
+                            {% with company.languages.all as langs %}
+                            {% if langs|length > 2 %}
+                                English<br/>
+                                {{ langs|length|add:"-1" }} more
+                            {% else %}
+                                {% for lang in langs %}
+                                {{ lang.name }}<br/>
+                                {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </h3>
+                    </div>
+                </li>
+    
+                <li>
+                    <h2>Interactive Elements</h2>
+                    <div class="icons">
+                        <h3>
+                            {% if company.interactive %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </h3>
+                    </div>
+                </li>
+    
+                <li>
+                    <h2>Pre/Post Test</h2>
+                    <div class="icons">
+                        <h3>
+                            {% if company.pretest and company.posttest %}
+                                Both
+                            {% elif company.pretest %}
+                                Pre-test only
+                            {% elif company.posttest %}
+                                Post-test only
+                            {% else %}
+                                Neither
+                            {% endif %}
+                        </h3>
+                    </div>
+                </li>
+    
+                <li>
+                    <h2 style="color: #F0801F;">Pass/Fail</h2>
+                    <div class="icons">
+                        <h3>
+                            {% if company.point_total > 18 %}
+                                <img src="/static/images/checkmark-circle.png" alt="" style="width: 100%; height: 100%">
+                            {% else %}
+                               <img src="/static/images/Unavailable.png" alt="" style="width: 100%; height: 100%">
+                            {% endif %}
+                        </h3>
+                    </div>
+                </li>
+            </ul>
+    
+            <div class="feedback">
+                <h1>Specific Overall Feedback: </h1>
+                <p id = "abouttxt">{{ company.feedback}}</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer">
+        <div class="footer-column">
+            <h4>Navigation</h4>
+            <p><a href="/home">Home</a></p>
+            <p><a href="/about">About</a></p>
+            <p><a href="/apply">Apply</a></p>
+        </div>
+        <div class="footer-column">
+            <h4><a href="mailto:SHINE@floridainnovation.org">Contact Us</a></h4>
+            <p></p>
+            <p>SHINE@floridainnovation.org</p>
+            <p>407-562-7793</p>
+        </div>
+        <div class="footer-column">
+            <h4><a href="#">Social Media</a></h4>
+            <p><a href="https://www.linkedin.com/company/florida-community-innovation-foundation/" target="_blank">
+                <i class="fab fa-linkedin"></i> LinkedIn</a>
+            </p>
+            <p><a href="https://twitter.com/FLInnovation" target="_blank">
+                <i class="fab fa-twitter"></i> Twitter</a>
+            </p>
+            <p><a href="http://instagram.com/floridacommunityinnovation" target="_blank">
+                <i class="fab fa-instagram"></i> Instagram</a>
+            </p>
+            <p><a href="https://www.facebook.com/Florida-Community-Innovation-101125225563077" target="_blank">
+                <i class="fab fa-facebook"></i> Facebook</a>
+            </p>
+        </div>
+        <div class="footer-column">
+            <h4>Misc</h4>
+            <p><a href="https://floridainnovation.org/" target="_blank">About FCI</a></p>
+        </div>
+    </div>
+
+
+</body>
+

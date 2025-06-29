@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply to SHINE</title>
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'css/apply.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="header" id="myHeader">
+        <h2 style="font-size: 1.2em; margin-left: 70px; color:white; font-family: Segoe UI,Arial,sans-serif; font-weight: 400;"><a href="/" style="color: white; text-decoration: none;">S.H.I.N.E</a></h2>
+        <div class="navigation">
+            <ul>
+                <li ><a style="color:white" href="/home">Home</a></li>
+                <li ><a style="color:white" href="/about">About</a> </li>
+                <li ><a style="color:white" href="/apply">Apply</a> </li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn" style="color:white">Companies</a>
+                    <div class="dropdown-content">
+                        {% for company in companies %}
+                            <a class="companies" href="{% url 'companies.detail' company.id %}">{{ company.title }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="apply-message-container">
+        <h1>Interested in applying to SHINE?</h1>
+        <p>
+            To have your training assessed on our platform, please contact us directly at
+            <strong><a href="mailto:SHINE@floridainnovation.org">SHINE@floridainnovation.org</a></strong>.
+        </p>
+    </div>
+
+    <div class="footer">
+        <div class="footer-column">
+            <h4>Navigation</h4>
+            <p><a href="/home">Home</a></p>
+            <p><a href="/about">About</a></p>
+            <p><a href="/apply">Apply</a></p>
+        </div>
+        <div class="footer-column">
+            <h4><a href="mailto:SHINE@floridainnovation.org">Contact Us</a></h4>
+            <p></p>
+            <p>SHINE@floridainnovation.org</p>
+            <p>407-562-7793</p>
+        </div>
+        <div class="footer-column">
+            <h4><a href="#">Social Media</a></h4>
+            <p><a href="https://www.linkedin.com/company/florida-community-innovation-foundation/" target="_blank">
+                <i class="fab fa-linkedin"></i> LinkedIn</a>
+            </p>
+            <p><a href="https://twitter.com/FLInnovation" target="_blank">
+                <i class="fab fa-twitter"></i> Twitter</a>
+            </p>
+            <p><a href="http://instagram.com/floridacommunityinnovation" target="_blank">
+                <i class="fab fa-instagram"></i> Instagram</a>
+            </p>
+            <p><a href="https://www.facebook.com/Florida-Community-Innovation-101125225563077" target="_blank">
+                <i class="fab fa-facebook"></i> Facebook</a>
+            </p>
+        </div>
+        <div class="footer-column">
+            <h4>Misc</h4>
+            <p><a href="https://floridainnovation.org/" target="_blank">About FCI</a></p>
+        </div>
+    </div>
+
+    <script src="{% static 'js/about.js' %}"></script>
+</body>
+</html>
