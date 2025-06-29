@@ -320,79 +320,182 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Icon background colors in dark mode - more subtle */
+/* ===== COLORFUL ICON BACKGROUNDS IN DARK MODE ===== */
+/* Keep vibrant, colorful icon backgrounds that look great in dark mode */
+
+/* Primary Blue Icons - Enhanced for dark mode */
 [data-theme="dark"] .bg-primary-100 {
   background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.15) 0%, 
-    rgba(37, 99, 235, 0.2) 100%) !important;
+    rgba(59, 130, 246, 0.9) 0%, 
+    rgba(37, 99, 235, 1) 100%) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* Secondary Orange Icons - Enhanced for dark mode */
 [data-theme="dark"] .bg-secondary-100 {
   background: linear-gradient(135deg, 
-    rgba(249, 115, 22, 0.15) 0%, 
-    rgba(234, 88, 12, 0.2) 100%) !important;
+    rgba(249, 115, 22, 0.9) 0%, 
+    rgba(234, 88, 12, 1) 100%) !important;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(249, 115, 22, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* Success Green Icons - Enhanced for dark mode */
 [data-theme="dark"] .bg-success-100 {
   background: linear-gradient(135deg, 
-    rgba(16, 185, 129, 0.15) 0%, 
-    rgba(5, 150, 105, 0.2) 100%) !important;
+    rgba(34, 197, 94, 0.9) 0%, 
+    rgba(22, 163, 74, 1) 100%) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(34, 197, 94, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* Warning Yellow Icons - Enhanced for dark mode */
 [data-theme="dark"] .bg-warning-100 {
   background: linear-gradient(135deg, 
-    rgba(245, 158, 11, 0.15) 0%, 
-    rgba(217, 119, 6, 0.2) 100%) !important;
+    rgba(245, 158, 11, 0.9) 0%, 
+    rgba(217, 119, 6, 1) 100%) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(245, 158, 11, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* Error Red Icons - Enhanced for dark mode */
 [data-theme="dark"] .bg-error-100 {
   background: linear-gradient(135deg, 
-    rgba(239, 68, 68, 0.15) 0%, 
-    rgba(220, 38, 38, 0.2) 100%) !important;
+    rgba(239, 68, 68, 0.9) 0%, 
+    rgba(220, 38, 38, 1) 100%) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(239, 68, 68, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* Neutral Gray Icons - Enhanced for dark mode */
 [data-theme="dark"] .bg-neutral-200 {
   background: linear-gradient(135deg, 
-    rgba(71, 85, 105, 0.2) 0%, 
-    rgba(100, 116, 139, 0.25) 100%) !important;
+    rgba(148, 163, 184, 0.9) 0%, 
+    rgba(100, 116, 139, 1) 100%) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(148, 163, 184, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Ensure proper text colors for icon containers */
+/* ===== VIBRANT ICON TEXT COLORS ===== */
+/* Keep icons bright and colorful */
+
 [data-theme="dark"] .text-primary-600 {
-  color: var(--primary-400) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .text-secondary-600 {
-  color: var(--secondary-400) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .text-success-600 {
-  color: #34d399 !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .text-warning-600 {
-  color: #fbbf24 !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .text-error-600 {
-  color: #f87171 !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .text-neutral-600 {
-  color: var(--text-tertiary) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Special handling for mission statement sections in CTA areas */
+/* ===== ENHANCED HOVER EFFECTS FOR ICON CONTAINERS ===== */
+[data-theme="dark"] .bg-primary-100:hover {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 1) 0%, 
+    rgba(37, 99, 235, 1) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(59, 130, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .bg-secondary-100:hover {
+  background: linear-gradient(135deg, 
+    rgba(249, 115, 22, 1) 0%, 
+    rgba(234, 88, 12, 1) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(249, 115, 22, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .bg-success-100:hover {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 1) 0%, 
+    rgba(22, 163, 74, 1) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(34, 197, 94, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .bg-warning-100:hover {
+  background: linear-gradient(135deg, 
+    rgba(245, 158, 11, 1) 0%, 
+    rgba(217, 119, 6, 1) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(245, 158, 11, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .bg-error-100:hover {
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 1) 0%, 
+    rgba(220, 38, 38, 1) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(239, 68, 68, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .bg-neutral-200:hover {
+  background: linear-gradient(135deg, 
+    rgba(148, 163, 184, 1) 0%, 
+    rgba(100, 116, 139, 1) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(148, 163, 184, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* ===== SPECIAL HANDLING FOR CTA SECTIONS ===== */
+/* In CTA sections, make icons even more vibrant to stand out */
 [data-theme="dark"] .bg-primary-50 .bg-primary-100,
 [data-theme="dark"] .bg-primary-50 .bg-secondary-100,
 [data-theme="dark"] .bg-primary-50 .bg-success-100,
 [data-theme="dark"] .bg-primary-50 .bg-warning-100,
 [data-theme="dark"] .bg-primary-50 .bg-error-100,
 [data-theme="dark"] .bg-primary-50 .bg-neutral-200 {
-  background: linear-gradient(135deg, 
-    rgba(148, 163, 184, 0.15) 0%, 
-    rgba(203, 213, 225, 0.2) 100%) !important;
-  border: 1px solid rgba(148, 163, 184, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
 }
 
 [data-theme="dark"] .bg-primary-50 .text-primary-600,
@@ -401,7 +504,8 @@
 [data-theme="dark"] .bg-primary-50 .text-warning-600,
 [data-theme="dark"] .bg-primary-50 .text-error-600,
 [data-theme="dark"] .bg-primary-50 .text-neutral-600 {
-  color: var(--text-primary) !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* Enhanced link styling in CTA sections */
@@ -427,4 +531,47 @@
 
 [data-theme="dark"] .bg-primary-50 p {
   color: var(--text-secondary) !important;
+}
+
+/* ===== ICON GLOW EFFECTS FOR EXTRA VISUAL APPEAL ===== */
+[data-theme="dark"] .card:hover .bg-primary-100 {
+  box-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.6),
+    0 8px 20px rgba(59, 130, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="dark"] .card:hover .bg-secondary-100 {
+  box-shadow: 
+    0 0 20px rgba(249, 115, 22, 0.6),
+    0 8px 20px rgba(249, 115, 22, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="dark"] .card:hover .bg-success-100 {
+  box-shadow: 
+    0 0 20px rgba(34, 197, 94, 0.6),
+    0 8px 20px rgba(34, 197, 94, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="dark"] .card:hover .bg-warning-100 {
+  box-shadow: 
+    0 0 20px rgba(245, 158, 11, 0.6),
+    0 8px 20px rgba(245, 158, 11, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="dark"] .card:hover .bg-error-100 {
+  box-shadow: 
+    0 0 20px rgba(239, 68, 68, 0.6),
+    0 8px 20px rgba(239, 68, 68, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="dark"] .card:hover .bg-neutral-200 {
+  box-shadow: 
+    0 0 20px rgba(148, 163, 184, 0.6),
+    0 8px 20px rgba(148, 163, 184, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
 }
