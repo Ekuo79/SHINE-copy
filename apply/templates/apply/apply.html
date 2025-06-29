@@ -3,74 +3,312 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Apply to SHINE</title>
-    <link rel="stylesheet" href="{% static 'css/about.css' %}">
-    <link rel="stylesheet" href="{% static 'css/apply.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply to SHINE - Get Your Training Verified</title>
+    <meta name="description" content="Apply to have your anti-human trafficking training assessed and verified by the SHINE Project.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/modern-base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 </head>
 <body>
-    <div class="header" id="myHeader">
-        <h2 style="font-size: 1.2em; margin-left: 70px; color:white; font-family: Segoe UI,Arial,sans-serif; font-weight: 400;"><a href="/" style="color: white; text-decoration: none;">S.H.I.N.E</a></h2>
-        <div class="navigation">
-            <ul>
-                <li ><a style="color:white" href="/home">Home</a></li>
-                <li ><a style="color:white" href="/about">About</a> </li>
-                <li ><a style="color:white" href="/apply">Apply</a> </li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn" style="color:white">Companies</a>
-                    <div class="dropdown-content">
-                        {% for company in companies %}
-                            <a class="companies" href="{% url 'companies.detail' company.id %}">{{ company.title }}</a>
-                        {% endfor %}
-                    </div>
-                </li>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="/" class="logo">S.H.I.N.E</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop">
+                <ul class="nav-links">
+                    <li><a href="/home" class="nav-link">Home</a></li>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/apply" class="nav-link active">Apply</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Companies</a>
+                        <div class="dropdown-menu">
+                            {% for company in companies %}
+                                <a href="{% url 'companies.detail' company.id %}" class="dropdown-item">{{ company.title }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Navigation -->
+            <nav class="nav-mobile">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="mobile-menu" id="mobileMenu">
+                    <ul class="mobile-nav-links">
+                        <li><a href="/home" class="mobile-nav-link">Home</a></li>
+                        <li><a href="/about" class="mobile-nav-link">About</a></li>
+                        <li><a href="/apply" class="mobile-nav-link">Apply</a></li>
+                        <li>
+                            <div class="mobile-nav-link">Companies</div>
+                            <div class="mobile-dropdown-items">
+                                {% for company in companies %}
+                                    <a href="{% url 'companies.detail' company.id %}" class="mobile-dropdown-item">{{ company.title }}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-white">
+        <div class="container text-center">
+            <div class="w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-8">
+                <i class="fas fa-certificate text-primary-600 text-4xl"></i>
+            </div>
+            <h1 class="text-4xl font-bold mb-6 text-neutral-900">Apply to SHINE</h1>
+            <p class="text-xl text-neutral-600 mx-auto mb-8" style="max-width: 600px;">
+                Get your anti-human trafficking training assessed and verified by our expert team.
+            </p>
+        </div>
+    </section>
+
+    <!-- Application Process -->
+    <section class="py-20 bg-neutral-50">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4 text-neutral-900">How It Works</h2>
+                <p class="text-lg text-neutral-600">Our simple verification process ensures your training meets industry standards</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Submit Your Training</h3>
+                    <p class="text-neutral-600">Contact us with your training materials and program details for initial review.</p>
+                </div>
                 
-            </ul>
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Expert Assessment</h3>
+                    <p class="text-neutral-600">Our team evaluates your training against comprehensive criteria for effectiveness.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Get Verified</h3>
+                    <p class="text-neutral-600">Receive your verification status and detailed feedback on your training program.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="apply-message-container">
-        <h1>Interested in applying to SHINE?</h1>
-        <p>
-            To have your training assessed on our platform, please contact us directly at
-            <strong><a href="mailto:SHINE@floridainnovation.org">SHINE@floridainnovation.org</a></strong>.
-        </p>
-    </div>
+    <!-- Contact Section -->
+    <section class="py-20 bg-white">
+        <div class="container">
+            <div class="max-w-4xl mx-auto">
+                <div class="card">
+                    <div class="card-body text-center p-8">
+                        <div class="w-20 h-20 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-envelope text-secondary-600 text-3xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold mb-6 text-neutral-900">Ready to Get Started?</h2>
+                        <p class="text-lg text-neutral-600 mb-8 leading-relaxed">
+                            To have your training assessed on our platform, please contact us directly. We'll guide you through the process and answer any questions you may have about our verification criteria.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                            <a href="mailto:SHINE@floridainnovation.org" class="btn btn-primary btn-lg">
+                                <i class="fas fa-envelope mr-2"></i>Contact Us Now
+                            </a>
+                            <div class="text-neutral-600">
+                                <i class="fas fa-phone mr-2"></i>407-562-7793
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="footer">
-        <div class="footer-column">
-            <h4>Navigation</h4>
-            <p><a href="/home">Home</a></p>
-            <p><a href="/about">About</a></p>
-            <p><a href="/apply">Apply</a></p>
-        </div>
-        <div class="footer-column">
-            <h4><a href="mailto:SHINE@floridainnovation.org">Contact Us</a></h4>
-            <p></p>
-            <p>SHINE@floridainnovation.org</p>
-            <p>407-562-7793</p>
-        </div>
-        <div class="footer-column">
-            <h4><a href="#">Social Media</a></h4>
-            <p><a href="https://www.linkedin.com/company/florida-community-innovation-foundation/" target="_blank">
-                <i class="fab fa-linkedin"></i> LinkedIn</a>
-            </p>
-            <p><a href="https://twitter.com/FLInnovation" target="_blank">
-                <i class="fab fa-twitter"></i> Twitter</a>
-            </p>
-            <p><a href="http://instagram.com/floridacommunityinnovation" target="_blank">
-                <i class="fab fa-instagram"></i> Instagram</a>
-            </p>
-            <p><a href="https://www.facebook.com/Florida-Community-Innovation-101125225563077" target="_blank">
-                <i class="fab fa-facebook"></i> Facebook</a>
-            </p>
-        </div>
-        <div class="footer-column">
-            <h4>Misc</h4>
-            <p><a href="https://floridainnovation.org/" target="_blank">About FCI</a></p>
-        </div>
-    </div>
+    <!-- Benefits Section -->
+    <section class="py-20 bg-primary-50">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4 text-neutral-900">Why Get Verified?</h2>
+                <p class="text-lg text-neutral-600">The benefits of SHINE verification for your organization</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Benefit 1 -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-award text-success-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">Industry Recognition</h3>
+                        <p class="text-neutral-600">Demonstrate your commitment to effective anti-trafficking training with official verification.</p>
+                    </div>
+                </div>
 
-    <script src="{% static 'js/about.js' %}"></script>
+                <!-- Benefit 2 -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-chart-line text-primary-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">Improved Effectiveness</h3>
+                        <p class="text-neutral-600">Receive detailed feedback to enhance your training program's impact and effectiveness.</p>
+                    </div>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shield-check text-secondary-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">Compliance Assurance</h3>
+                        <p class="text-neutral-600">Ensure your training meets Florida Statute § 509.096 requirements and best practices.</p>
+                    </div>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-warning-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-warning-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">Network Access</h3>
+                        <p class="text-neutral-600">Join a network of verified organizations committed to combating human trafficking.</p>
+                    </div>
+                </div>
+
+                <!-- Benefit 5 -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-error-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-lightbulb text-error-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">Expert Insights</h3>
+                        <p class="text-neutral-600">Gain access to research-backed recommendations for training improvement.</p>
+                    </div>
+                </div>
+
+                <!-- Benefit 6 -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-neutral-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-handshake text-neutral-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">Partnership Opportunities</h3>
+                        <p class="text-neutral-600">Collaborate with FCI and other organizations on anti-trafficking initiatives.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/apply">Apply</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:SHINE@floridainnovation.org">SHINE@floridainnovation.org</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>407-562-7793</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Social Media</h4>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/florida-community-innovation-foundation/" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>LinkedIn
+                        </a>
+                        <a href="https://twitter.com/FLInnovation" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>Twitter
+                        </a>
+                        <a href="http://instagram.com/floridacommunityinnovation" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>Instagram
+                        </a>
+                        <a href="https://www.facebook.com/Florida-Community-Innovation-101125225563077" target="_blank" class="social-link">
+                            <i class="fab fa-facebook"></i>Facebook
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>About FCI</h4>
+                    <p>Learn more about the Florida Community Innovation Foundation and our mission.</p>
+                    <a href="https://floridainnovation.org/" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">Visit FCI</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SHINE Project. All rights reserved. Sponsored by Florida Community Innovation Foundation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+    </script>
 </body>
 </html>

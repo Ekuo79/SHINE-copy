@@ -1,126 +1,285 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body>
-    <div class="header" id="myHeader">
-        <h2 style="font-size: 1.2em; margin-left: 70px;"><a href="/" style="color: white; text-decoration: none;">S.H.I.N.E</a></h2>
-        <div class="navigation">
-            <ul>
-                <li ><a href="/home">Home</a></li>
-                <li ><a href="/about">About</a> </li>
-                <li ><a href="/apply">Apply</a> </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">Companies</a>
-                    <div class="dropdown-content">
-                        {% for company in companies %}
-                            <a class="companies" href="{% url 'companies.detail' company.id %}">{{ company.title }}</a>
-                        {% endfor %}
-                    </div>
-                </li>
-                
-            </ul>
-        </div>
-    </div>
+    <title>SHINE - Stop Human-trafficking through Industry Networking and Education</title>
+    <meta name="description" content="Fighting human trafficking with technology through effective training programs in Florida's hospitality industry.">
     
-    <div class="banner">
-        <h1 class="banner-title">Stop Human-trafficking through<br>Industry Networking and Education</h1>
-        <h2 class="banner-text">Fighting human trafficking with technology!</h2>
-    </div>
-    <div class="image-section">
-        <img src="/static/images/image 8 (1).png" class="hotel" alt="hotel image">
-        <div class="text-box">
-            <h1 class="about-title">Who We Are</h1>
-            <h2 class="about-text">The SHINE Project is sponsored by the Florida Community Innovation Foundation  is dedicated to combating human trafficking in Florida by ensuring the effectiveness of mandated anti-human trafficking (anti-HT) training in the hospitality industry. Our goal is to bridge the gap between education and implementation, with a focus on improving training quality and ultimately increasing the detection of human trafficking cases.</h2>
-            <img src="/static/images/FCI.png" class="FCI" alt="FCI image">
-        </div> 
-    </div>
-    <div class="information">
-        <div class="text-column">
-            <h1 class="information-title">Creating Safer Communities</h1>
-            <p class="information-text">The SHINE Project is a crucial initiative aimed at addressing concerns surrounding the training programs mandated by Florida Statute § 509.096. This statute requires hotels to train housekeeping and front-desk employees with anti-human trafficking materials. Despite this mandate, there is uncertainty regarding the content and effectiveness of these training programs. The SHINE Project seeks to ensure that not only are these programs in effect, but they are also truly effective in combating human trafficking.</p>
-        </div>
-        <div class="image-column">
-            <img src="/static/images/logos/SHINE.png" alt="Information Image" class="information-image">
-        </div>
-    </div>
-    <section class="contacts">
-        <h1 class="contacts-title">Interested in this project?</h1>
-        <div class="columns">
-            <div class="column1">
-                <p class="column-titles">Get Verified</p>
-                <p>Get your business verified</p>
-                <button class="apply-button" onclick="window.location.href = '/apply'">Apply</button>
-            </div>
-            <div class="column2">
-                <p class="column-titles">We Need Your Support</p>
-                <p>Connected to hospitality chains? Share anti-human trafficking training materials by contacting us.</p>
-            </div>
-            <div class="column3">
-                <p class="column-titles">Human Trafficking Resources</p>
-                <ul>
-                    <li>
-                        <a href="https://floridainnovation.org/wp-content/uploads/2024/06/FCI-McCourt-Research-Report-on-Combating-Human-Trafficking.pdf" target="_blank" style="text-decoration: none; color: inherit;">
-                            Training Effectiveness Report &#8599;
-                        </a>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/modern-base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="/" class="logo">S.H.I.N.E</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop">
+                <ul class="nav-links">
+                    <li><a href="/home" class="nav-link active">Home</a></li>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/apply" class="nav-link">Apply</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Companies</a>
+                        <div class="dropdown-menu">
+                            {% for company in companies %}
+                                <a href="{% url 'companies.detail' company.id %}" class="dropdown-item">{{ company.title }}</a>
+                            {% endfor %}
+                        </div>
                     </li>
-                    <li>
-                        <a href="https://floridainnovation.org/2024/09/13/global-demographics-of-human-trafficking-detection-in-data/" target="_blank" style="text-decoration: none; color: inherit;">
-                            Data Visualization &#8599;
-                        </a>
-                    </li>
-                    <li><a href="https://www.justice.gov/humantrafficking/resources" target="_blank" style="text-decoration: none; color: inherit;">
-                        Other Resources &#8599;
-                    </a></li>
-                </ul>   
+                </ul>
+            </nav>
+            
+            <!-- Mobile Navigation -->
+            <nav class="nav-mobile">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="mobile-menu" id="mobileMenu">
+                    <ul class="mobile-nav-links">
+                        <li><a href="/home" class="mobile-nav-link">Home</a></li>
+                        <li><a href="/about" class="mobile-nav-link">About</a></li>
+                        <li><a href="/apply" class="mobile-nav-link">Apply</a></li>
+                        <li>
+                            <div class="mobile-nav-link">Companies</div>
+                            <div class="mobile-dropdown-items">
+                                {% for company in companies %}
+                                    <a href="{% url 'companies.detail' company.id %}" class="mobile-dropdown-item">{{ company.title }}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-24 bg-white">
+        <div class="container text-center">
+            <h1 class="text-4xl font-bold mb-6 text-neutral-900" style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1;">
+                Stop Human-trafficking through<br>
+                <span class="text-primary">Industry Networking and Education</span>
+            </h1>
+            <p class="text-xl text-neutral-600 mb-8 mx-auto" style="max-width: 600px;">
+                Fighting human trafficking with technology through effective training programs in Florida's hospitality industry.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="/apply" class="btn btn-primary btn-lg">Get Verified</a>
+                <a href="/about" class="btn btn-outline btn-lg">Learn More</a>
             </div>
         </div>
-        
     </section>
 
-    <div class="footer">
-        <div class="footer-column">
-            <h4>Navigation</h4>
-            <p><a href="/home">Home</a></p>
-            <p><a href="/about">About</a></p>
-            <p><a href="/apply">Apply</a></p>
+    <!-- About Section -->
+    <section class="py-20 bg-neutral-100">
+        <div class="container">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <img src="/static/images/image 8 (1).png" alt="Hotel industry" class="rounded-2xl shadow-lg w-full h-auto">
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-3xl font-bold mb-6 text-neutral-900">Who We Are</h2>
+                    <p class="text-lg text-neutral-700 mb-6 leading-relaxed">
+                        The SHINE Project is sponsored by the Florida Community Innovation Foundation and is dedicated to combating human trafficking in Florida by ensuring the effectiveness of mandated anti-human trafficking (anti-HT) training in the hospitality industry.
+                    </p>
+                    <p class="text-lg text-neutral-700 mb-8 leading-relaxed">
+                        Our goal is to bridge the gap between education and implementation, with a focus on improving training quality and ultimately increasing the detection of human trafficking cases.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="/static/images/FCI.png" alt="Florida Community Innovation" class="h-16 w-auto">
+                        <div>
+                            <p class="font-semibold text-neutral-800">Sponsored by</p>
+                            <p class="text-neutral-600">Florida Community Innovation Foundation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="footer-column">
-            <h4><a href="mailto:SHINE@floridainnovation.org">Contact Us</a></h4>
-            <p></p>
-            <p>SHINE@floridainnovation.org</p>
-            <p>407-562-7793</p>
-        </div>
-        <div class="footer-column">
-            <h4><a href="#">Social Media</a></h4>
-            <p><a href="https://www.linkedin.com/company/florida-community-innovation-foundation/" target="_blank">
-                <i class="fab fa-linkedin"></i> LinkedIn</a>
-            </p>
-            <p><a href="https://twitter.com/FLInnovation" target="_blank">
-                <i class="fab fa-twitter"></i> Twitter</a>
-            </p>
-            <p><a href="http://instagram.com/floridacommunityinnovation" target="_blank">
-                <i class="fab fa-instagram"></i> Instagram</a>
-            </p>
-            <p><a href="https://www.facebook.com/Florida-Community-Innovation-101125225563077" target="_blank">
-                <i class="fab fa-facebook"></i> Facebook</a>
-            </p>
-        </div>
-        <div class="footer-column">
-            <h4>Misc</h4>
-            <p><a href="https://floridainnovation.org/" target="_blank">About FCI</a></p>
-        </div>
-    </div>
+    </section>
 
+    <!-- Mission Section -->
+    <section class="py-20 bg-white">
+        <div class="container">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 text-neutral-900">Creating Safer Communities</h2>
+                    <p class="text-lg text-neutral-700 mb-6 leading-relaxed">
+                        The SHINE Project is a crucial initiative aimed at addressing concerns surrounding the training programs mandated by Florida Statute § 509.096. This statute requires hotels to train housekeeping and front-desk employees with anti-human trafficking materials.
+                    </p>
+                    <p class="text-lg text-neutral-700 mb-8 leading-relaxed">
+                        Despite this mandate, there is uncertainty regarding the content and effectiveness of these training programs. The SHINE Project seeks to ensure that not only are these programs in effect, but they are also truly effective in combating human trafficking.
+                    </p>
+                </div>
+                <div class="flex justify-center">
+                    <img src="/static/images/logos/SHINE.png" alt="SHINE Logo" class="max-w-sm w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script src="/static/js/home.js"></script>
+    <!-- CTA Section -->
+    <section class="py-20 bg-primary-50">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-neutral-900">Interested in this project?</h2>
+                <p class="text-lg text-neutral-600">Join us in making a difference in the fight against human trafficking</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Get Verified Card -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-certificate text-primary-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">Get Verified</h3>
+                        <p class="text-neutral-600 mb-6">Get your business verified and ensure your training meets our standards.</p>
+                        <a href="/apply" class="btn btn-primary">Apply Now</a>
+                    </div>
+                </div>
+
+                <!-- Support Card -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-handshake text-secondary-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">We Need Your Support</h3>
+                        <p class="text-neutral-600 mb-6">Connected to hospitality chains? Share anti-human trafficking training materials by contacting us.</p>
+                        <a href="mailto:SHINE@floridainnovation.org" class="btn btn-secondary">Contact Us</a>
+                    </div>
+                </div>
+
+                <!-- Resources Card -->
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-book-open text-success-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4 text-neutral-900">Resources</h3>
+                        <div class="space-y-3 text-left">
+                            <a href="https://floridainnovation.org/wp-content/uploads/2024/06/FCI-McCourt-Research-Report-on-Combating-Human-Trafficking.pdf" target="_blank" class="block text-primary-600 hover:text-primary-700">
+                                <i class="fas fa-external-link-alt mr-2"></i>Training Effectiveness Report
+                            </a>
+                            <a href="https://floridainnovation.org/2024/09/13/global-demographics-of-human-trafficking-detection-in-data/" target="_blank" class="block text-primary-600 hover:text-primary-700">
+                                <i class="fas fa-external-link-alt mr-2"></i>Data Visualization
+                            </a>
+                            <a href="https://www.justice.gov/humantrafficking/resources" target="_blank" class="block text-primary-600 hover:text-primary-700">
+                                <i class="fas fa-external-link-alt mr-2"></i>Other Resources
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/apply">Apply</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:SHINE@floridainnovation.org">SHINE@floridainnovation.org</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>407-562-7793</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Social Media</h4>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/florida-community-innovation-foundation/" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>LinkedIn
+                        </a>
+                        <a href="https://twitter.com/FLInnovation" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>Twitter
+                        </a>
+                        <a href="http://instagram.com/floridacommunityinnovation" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>Instagram
+                        </a>
+                        <a href="https://www.facebook.com/Florida-Community-Innovation-101125225563077" target="_blank" class="social-link">
+                            <i class="fab fa-facebook"></i>Facebook
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>About FCI</h4>
+                    <p>Learn more about the Florida Community Innovation Foundation and our mission.</p>
+                    <a href="https://floridainnovation.org/" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">Visit FCI</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SHINE Project. All rights reserved. Sponsored by Florida Community Innovation Foundation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+    </script>
 </body>
+</html>

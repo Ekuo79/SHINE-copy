@@ -1,160 +1,372 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Companies</title>
-    <link rel="stylesheet" href="{% static 'css/companies_detail.css' %}">
-    <!-- Bootstrap CSS -->
-    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <title>{{ company.title }} - Training Assessment | SHINE</title>
+    <meta name="description" content="View the detailed assessment of {{ company.title }}'s anti-human trafficking training program.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/modern-base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 </head>
-
 <body>
-    <div class="header" id="myHeader">
-        <h2 style="font-size: 1.2em; margin-left: 70px; color:white; font-family: Segoe UI,Arial,sans-serif; font-weight: 400;"><a href="/" style="color: white; text-decoration: none;">S.H.I.N.E</a></h2>
-        <div class="navigation">
-            <ul>
-                <li ><a style="color:white" href="/home">Home</a></li>
-                <li ><a style="color:white" href="/about">About</a> </li>
-                <li ><a style="color:white" href="/apply">Apply</a> </li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn" style="color:white">Companies</a>
-                    <div class="dropdown-content">
-                        {% for company in companies %}
-                            <a class="companies" href="{% url 'companies.detail' company.id %}">{{ company.title }}</a>
-                        {% endfor %}
-                    </div>
-                </li>
-                
-            </ul>
-        </div>
-    </div>
-    
-    
-    <div class="hold">
-        <h3 id="company-title">{{company.title}}</h3>
-        <div class="blue-box">
-            {% if company.logo_path %}
-                <img src="{% static company.logo_path %}" alt="{{ company.title }} logo" class="logo-overlay">
-            {% endif %}
-            <h3 id="company-title">{{company.title}}</h3><h3>About</h3>
-            <p id="abouttxt">{{company.about}}</p>
-        </div>
-    </div>
-
-
-    <div class="hold">
-        <div class="score">
-            <ul>
-                <li>
-                    <h2>Accessibility</h2>
-                    <div class="icons">
-                        <h3>
-                            {% with company.languages.all as langs %}
-                            {% if langs|length > 2 %}
-                                English<br/>
-                                {{ langs|length|add:"-1" }} more
-                            {% else %}
-                                {% for lang in langs %}
-                                {{ lang.name }}<br/>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="/" class="logo">S.H.I.N.E</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop">
+                <ul class="nav-links">
+                    <li><a href="/home" class="nav-link">Home</a></li>
+                    <li><a href="/about" class="nav-link">About</a></li>
+                    <li><a href="/apply" class="nav-link">Apply</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active">Companies</a>
+                        <div class="dropdown-menu">
+                            {% for comp in companies %}
+                                <a href="{% url 'companies.detail' comp.id %}" class="dropdown-item {% if comp.id == company.id %}font-semibold{% endif %}">{{ comp.title }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Navigation -->
+            <nav class="nav-mobile">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="mobile-menu" id="mobileMenu">
+                    <ul class="mobile-nav-links">
+                        <li><a href="/home" class="mobile-nav-link">Home</a></li>
+                        <li><a href="/about" class="mobile-nav-link">About</a></li>
+                        <li><a href="/apply" class="mobile-nav-link">Apply</a></li>
+                        <li>
+                            <div class="mobile-nav-link">Companies</div>
+                            <div class="mobile-dropdown-items">
+                                {% for comp in companies %}
+                                    <a href="{% url 'companies.detail' comp.id %}" class="mobile-dropdown-item">{{ comp.title }}</a>
                                 {% endfor %}
-                            {% endif %}
-                            {% endwith %}
-                        </h3>
-                    </div>
-                </li>
-    
-                <li>
-                    <h2>Interactive Elements</h2>
-                    <div class="icons">
-                        <h3>
-                            {% if company.interactive %}
-                                Yes
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Company Header -->
+    <section class="py-16 bg-white">
+        <div class="container">
+            <div class="card">
+                <div class="card-body p-8">
+                    <div class="flex flex-col lg:flex-row items-start gap-8">
+                        <!-- Logo -->
+                        <div class="flex-shrink-0">
+                            {% if company.logo_path %}
+                                <div class="w-24 h-24 rounded-xl overflow-hidden shadow-md bg-neutral-100 flex items-center justify-center">
+                                    <img src="{% static company.logo_path %}" alt="{{ company.title }} logo" class="w-full h-full object-contain">
+                                </div>
                             {% else %}
-                                No
+                                <div class="w-24 h-24 rounded-xl bg-primary-100 flex items-center justify-center">
+                                    <i class="fas fa-building text-primary-600 text-3xl"></i>
+                                </div>
                             {% endif %}
-                        </h3>
+                        </div>
+                        
+                        <!-- Company Info -->
+                        <div class="flex-1">
+                            <h1 class="text-3xl font-bold mb-4 text-neutral-900">{{ company.title }}</h1>
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold mb-3 text-neutral-800">About</h3>
+                                <p class="text-neutral-700 leading-relaxed">{{ company.about }}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Pass/Fail Status -->
+                        <div class="flex-shrink-0">
+                            <div class="text-center">
+                                <div class="w-20 h-20 rounded-full flex items-center justify-center mb-3 mx-auto
+                                    {% if company.point_total > 18 %}bg-success-100{% else %}bg-error-100{% endif %}">
+                                    {% if company.point_total > 18 %}
+                                        <i class="fas fa-check text-success-600 text-2xl"></i>
+                                    {% else %}
+                                        <i class="fas fa-times text-error-600 text-2xl"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="text-sm font-medium text-neutral-600">Status</div>
+                                <div class="font-bold {% if company.point_total > 18 %}text-success-600{% else %}text-error-600{% endif %}">
+                                    {% if company.point_total > 18 %}Verified{% else %}Not Verified{% endif %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </li>
-    
-                <li>
-                    <h2>Pre/Post Test</h2>
-                    <div class="icons">
-                        <h3>
-                            {% if company.pretest and company.posttest %}
-                                Both
-                            {% elif company.pretest %}
-                                Pre-test only
-                            {% elif company.posttest %}
-                                Post-test only
-                            {% else %}
-                                Neither
-                            {% endif %}
-                        </h3>
-                    </div>
-                </li>
-    
-                <li>
-                    <h2 style="color: #F0801F;">Pass/Fail</h2>
-                    <div class="icons">
-                        <h3>
-                            {% if company.point_total > 18 %}
-                                <img src="/static/images/checkmark-circle.png" alt="" style="width: 100%; height: 100%">
-                            {% else %}
-                               <img src="/static/images/Unavailable.png" alt="" style="width: 100%; height: 100%">
-                            {% endif %}
-                        </h3>
-                    </div>
-                </li>
-            </ul>
-    
-            <div class="feedback">
-                <h1>Specific Overall Feedback: </h1>
-                <p id = "abouttxt">{{ company.feedback}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment Details -->
+    <section class="py-16 bg-neutral-50">
+        <div class="container">
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold mb-4 text-neutral-900">Training Assessment</h2>
+                <p class="text-neutral-600">Detailed evaluation of the training program's effectiveness and compliance</p>
             </div>
             
-        </div>
-    </div>
-    
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Accessibility -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-globe text-primary-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-3 text-neutral-900">Accessibility</h3>
+                        <div class="text-neutral-700">
+                            {% with company.languages.all as langs %}
+                                {% if langs|length > 2 %}
+                                    <div class="font-medium">English</div>
+                                    <div class="text-sm text-neutral-500">+{{ langs|length|add:"-1" }} more languages</div>
+                                {% else %}
+                                    {% for lang in langs %}
+                                        <div class="font-medium">{{ lang.name }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </div>
 
-    <div class="footer">
-        <div class="footer-column">
-            <h4>Navigation</h4>
-            <p><a href="/home">Home</a></p>
-            <p><a href="/about">About</a></p>
-            <p><a href="/apply">Apply</a></p>
-        </div>
-        <div class="footer-column">
-            <h4><a href="mailto:SHINE@floridainnovation.org">Contact Us</a></h4>
-            <p></p>
-            <p>SHINE@floridainnovation.org</p>
-            <p>407-562-7793</p>
-        </div>
-        <div class="footer-column">
-            <h4><a href="#">Social Media</a></h4>
-            <p><a href="https://www.linkedin.com/company/florida-community-innovation-foundation/" target="_blank">
-                <i class="fab fa-linkedin"></i> LinkedIn</a>
-            </p>
-            <p><a href="https://twitter.com/FLInnovation" target="_blank">
-                <i class="fab fa-twitter"></i> Twitter</a>
-            </p>
-            <p><a href="http://instagram.com/floridacommunityinnovation" target="_blank">
-                <i class="fab fa-instagram"></i> Instagram</a>
-            </p>
-            <p><a href="https://www.facebook.com/Florida-Community-Innovation-101125225563077" target="_blank">
-                <i class="fab fa-facebook"></i> Facebook</a>
-            </p>
-        </div>
-        <div class="footer-column">
-            <h4>Misc</h4>
-            <p><a href="https://floridainnovation.org/" target="_blank">About FCI</a></p>
-        </div>
-    </div>
+                <!-- Interactive Elements -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-mouse-pointer text-secondary-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-3 text-neutral-900">Interactive Elements</h3>
+                        <div class="text-neutral-700">
+                            <div class="font-medium {% if company.interactive %}text-success-600{% else %}text-error-600{% endif %}">
+                                {% if company.interactive %}Yes{% else %}No{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Pre/Post Test -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="w-16 h-16 bg-warning-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-clipboard-check text-warning-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-3 text-neutral-900">Pre/Post Test</h3>
+                        <div class="text-neutral-700">
+                            <div class="font-medium">
+                                {% if company.pretest and company.posttest %}
+                                    Both Tests
+                                {% elif company.pretest %}
+                                    Pre-test Only
+                                {% elif company.posttest %}
+                                    Post-test Only
+                                {% else %}
+                                    Neither
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Overall Score -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="w-16 h-16 {% if company.point_total > 18 %}bg-success-100{% else %}bg-error-100{% endif %} rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-star {% if company.point_total > 18 %}text-success-600{% else %}text-error-600{% endif %} text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-3 text-neutral-900">Overall Score</h3>
+                        <div class="text-neutral-700">
+                            <div class="font-bold text-2xl">{{ company.point_total }}/25</div>
+                            <div class="text-sm text-neutral-500">Points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Language Details -->
+            {% if company.languages.all %}
+            <div class="card mb-8">
+                <div class="card-body">
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">
+                        <i class="fas fa-language text-primary-600 mr-2"></i>
+                        Available Languages
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        {% for language in company.languages.all %}
+                            <span class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
+                                {{ language.name }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Feedback Section -->
+            {% if company.feedback %}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">
+                        <i class="fas fa-comments text-secondary-600 mr-2"></i>
+                        Specific Overall Feedback
+                    </h3>
+                    <div class="prose prose-lg max-w-none">
+                        <p class="text-neutral-700 leading-relaxed">{{ company.feedback }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Related Companies -->
+    <section class="py-16 bg-white">
+        <div class="container">
+            <h2 class="text-2xl font-bold mb-8 text-neutral-900">Other Assessed Companies</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for comp in companies %}
+                    {% if comp.id != company.id %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="flex items-start gap-4 mb-4">
+                                {% if comp.logo_path %}
+                                    <div class="w-12 h-12 rounded-lg overflow-hidden bg-neutral-100 flex items-center justify-center flex-shrink-0">
+                                        <img src="{% static comp.logo_path %}" alt="{{ comp.title }} logo" class="w-full h-full object-contain">
+                                    </div>
+                                {% else %}
+                                    <div class="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-building text-primary-600"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-neutral-900 mb-1">{{ comp.title }}</h3>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm {% if comp.point_total > 18 %}text-success-600{% else %}text-error-600{% endif %}">
+                                            {% if comp.point_total > 18 %}✓ Verified{% else %}✗ Not Verified{% endif %}
+                                        </span>
+                                        <span class="text-sm text-neutral-500">{{ comp.point_total }}/25</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{% url 'companies.detail' comp.id %}" class="btn btn-outline w-full">View Assessment</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/apply">Apply</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:SHINE@floridainnovation.org">SHINE@floridainnovation.org</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>407-562-7793</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Social Media</h4>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/florida-community-innovation-foundation/" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>LinkedIn
+                        </a>
+                        <a href="https://twitter.com/FLInnovation" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>Twitter
+                        </a>
+                        <a href="http://instagram.com/floridacommunityinnovation" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>Instagram
+                        </a>
+                        <a href="https://www.facebook.com/Florida-Community-Innovation-101125225563077" target="_blank" class="social-link">
+                            <i class="fab fa-facebook"></i>Facebook
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>About FCI</h4>
+                    <p>Learn more about the Florida Community Innovation Foundation and our mission.</p>
+                    <a href="https://floridainnovation.org/" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">Visit FCI</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SHINE Project. All rights reserved. Sponsored by Florida Community Innovation Foundation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+    </script>
 </body>
-
+</html>
