@@ -43,9 +43,9 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(135deg, 
-                rgba(7, 89, 133, 0.85) 0%, 
-                rgba(12, 74, 110, 0.75) 50%,
-                rgba(3, 105, 161, 0.8) 100%);
+                rgba(7, 89, 133, 0.4) 0%, 
+                rgba(12, 74, 110, 0.35) 50%,
+                rgba(3, 105, 161, 0.45) 100%);
             z-index: 1;
         }
         
@@ -63,7 +63,7 @@
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: var(--space-8);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
         
         .overlay-content p {
@@ -71,16 +71,16 @@
             font-size: 1.25rem;
             line-height: 1.7;
             margin-bottom: var(--space-6);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
         }
         
         .sponsor-badge {
             display: inline-flex;
             align-items: center;
             gap: var(--space-4);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: var(--radius-xl);
             padding: var(--space-4) var(--space-6);
             margin-top: var(--space-8);
@@ -88,9 +88,9 @@
         }
         
         .sponsor-badge:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
         
         .sponsor-badge img {
@@ -145,18 +145,18 @@
         /* Dark mode adjustments */
         [data-theme="dark"] .image-overlay-section::before {
             background: linear-gradient(135deg, 
-                rgba(15, 23, 42, 0.9) 0%, 
-                rgba(30, 41, 59, 0.85) 50%,
-                rgba(51, 65, 85, 0.9) 100%);
+                rgba(15, 23, 42, 0.6) 0%, 
+                rgba(30, 41, 59, 0.55) 50%,
+                rgba(51, 65, 85, 0.65) 100%);
         }
         
         [data-theme="dark"] .sponsor-badge {
-            background: rgba(15, 23, 42, 0.8);
-            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.7);
+            border-color: rgba(255, 255, 255, 0.2);
         }
         
         [data-theme="dark"] .sponsor-badge:hover {
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.8);
         }
     </style>
 </head>
