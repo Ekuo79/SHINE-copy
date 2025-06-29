@@ -56,6 +56,7 @@
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   position: relative;
+  text-decoration: none;
 }
 
 .nav-link:hover {
