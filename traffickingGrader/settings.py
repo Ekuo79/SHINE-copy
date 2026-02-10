@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# CSRF Trusted Origins - Required for production
+CSRF_TRUSTED_ORIGINS = [
+    'https://www.fcishine.com',
+    'https://fcishine.com',
+]
+
 
 # Application definition
 
