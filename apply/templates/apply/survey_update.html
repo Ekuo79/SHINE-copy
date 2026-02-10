@@ -1,0 +1,197 @@
+<!-- This file contains the updated HTML and JavaScript for the Yes/No button survey -->
+<!-- Copy the 3-point features section and add CSS + Updated JS at the bottom -->
+
+<!-- 3 Point Features -->
+<div class="mb-10">
+    <h3 class="text-2xl font-semibold mb-6 text-neutral-900 border-b pb-3">
+        3 Point Features <span class="text-sm font-normal text-neutral-600">(3 points each)</span>
+    </h3>
+
+    <div class="space-y-4">
+        <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <div class="font-semibold text-neutral-900">Overall Definition</div>
+                    <div class="text-sm text-neutral-600">Does the training provide clear definitions, real crime scene photos, and comprehensive examples of what trafficking is?</div>
+                </div>
+                <div class="flex gap-2 ml-4">
+                    <button type="button" class="yes-no-btn" data-name="overall_definition" data-value="yes" data-points="3">
+                        <i class="fas fa-check"></i> Yes
+                    </button>
+                    <button type="button" class="yes-no-btn" data-name="overall_definition" data-value="no">
+                        <i class="fas fa-times"></i> No
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <div class="font-semibold text-neutral-900">Trafficking Signs</div>
+                    <div class="text-sm text-neutral-600">Does it list specific indicators (e.g., constant supervision of guests, excessive trash, denial of cleaning, multiple guests in one room)?</div>
+                </div>
+                <div class="flex gap-2 ml-4">
+                    <button type="button" class="yes-no-btn" data-name="trafficking_signs" data-value="yes" data-points="3">
+                        <i class="fas fa-check"></i> Yes
+                    </button>
+                    <button type="button" class="yes-no-btn" data-name="trafficking_signs" data-value="no">
+                        <i class="fas fa-times"></i> No
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <div class="font-semibold text-neutral-900">Law Enforcement</div>
+                    <div class="text-sm text-neutral-600">Is there a clear protocol for reporting to law enforcement, including what details to record (room numbers, descriptions, timestamps)?</div>
+                </div>
+                <div class="flex gap-2 ml-4">
+                    <button type="button" class="yes-no-btn" data-name="law_enforcement" data-value="yes" data-points="3">
+                        <i class="fas fa-check"></i> Yes
+                    </button>
+                    <button type="button" class="yes-no-btn" data-name="law_enforcement" data-value="no">
+                        <i class="fas fa-times"></i> No
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <div class="font-semibold text-neutral-900">Legal Regulations</div>
+                    <div class="text-sm text-neutral-600">Does it cover the legalities of the crime, the risks of "wrongful suspicion," and how to handle a potentially complicit employee?</div>
+                </div>
+                <div class="flex gap-2 ml-4">
+                    <button type="button" class="yes-no-btn" data-name="legal_regulations" data-value="yes" data-points="3">
+                        <i class="fas fa-check"></i> Yes
+                    </button>
+                    <button type="button" class="yes-no-btn" data-name="legal_regulations" data-value="no">
+                        <i class="fas fa-times"></i> No
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add this CSS inside a <style> tag -->
+<style>
+.yes-no-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    min-width: 80px;
+}
+
+.yes-no-btn:hover {
+    background: #f3f4f6;
+}
+
+.yes-no-btn.active[data-value="yes"] {
+    background: #10b981;
+    border-color: #059669;
+    color: white;
+}
+
+.yes-no-btn.active[data-value="no"] {
+    background: #ef4444;
+    border-color: #dc2626;
+    color: white;
+}
+</style>
+
+<!-- Updated JavaScript -->
+<script>
+// Survey responses state
+const surveyResponses = {};
+
+// Handle Yes/No button clicks
+document.querySelectorAll('.yes-no-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const name = this.dataset.name;
+        const value = this.dataset.value;
+        const points = parseInt(this.dataset.points) || 0;
+
+        // Find sibling buttons for this question
+        const parent = this.closest('.flex.gap-2');
+        const siblings = parent.querySelectorAll('.yes-no-btn');
+
+        // Remove active class from all siblings
+        siblings.forEach(btn => btn.classList.remove('active'));
+
+        // Add active class to clicked button
+        this.classList.add('active');
+
+        // Store response
+        if (value === 'yes') {
+            survey Responses[name] = {value: true, points: points};
+        } else {
+            surveyResponses[name] = {value: false, points: 0};
+        }
+
+        // Update score
+        updateScore();
+    });
+});
+
+// Calculate and update score in real-time
+function updateScore() {
+    let totalScore = 0;
+
+    // Add up points from Yes/No buttons
+    Object.values(surveyResponses).forEach(response => {
+        if (response.value) {
+            totalScore += response.points;
+        }
+    });
+
+    // Add points from checkboxes (Additional Features)
+    document.querySelectorAll('.survey-checkbox:checked').forEach(checkbox => {
+        totalScore += parseInt(checkbox.dataset.points) || 0;
+    });
+
+    document.getElementById('current-score').textContent = totalScore;
+
+    // Update status message
+    const scoreStatusElement = document.getElementById('score-status');
+    if (totalScore >= 18) {
+        scoreStatusElement.innerHTML = '<span style="color: #10b981; font-weight: bold;"><i class="fas fa-check-circle"></i> Your training qualifies!</span>';
+    } else {
+        const needed = 18 - totalScore;
+        scoreStatusElement.textContent = `You need ${needed} more point${needed !== 1 ? 's' : ''} to pass`;
+    }
+
+    return totalScore;
+}
+
+// Handle form submission - update data collection
+function collectFormData() {
+    return {
+        company_name: document.querySelector('[name="company_name"]').value,
+        company_about: document.querySelector('[name="company_about"]').value,
+        contact_email: document.querySelector('[name="contact_email"]').value,
+        languages: document.querySelector('[name="languages"]').value || '',
+        survivor_accounts: surveyResponses.survivor_accounts?.value || false,
+        tailored_content: surveyResponses.tailored_content?.value || false,
+        statistics: surveyResponses.statistics?.value || false,
+        victim_focused: surveyResponses.victim_focused?.value || false,
+        risk_reduction: surveyResponses.risk_reduction?.value || false,
+        partnerships: surveyResponses.partnerships?.value || false,
+        overall_definition: surveyResponses.overall_definition?.value || false,
+        trafficking_signs: surveyResponses.trafficking_signs?.value || false,
+        law_enforcement: surveyResponses.law_enforcement?.value || false,
+        legal_regulations: surveyResponses.legal_regulations?.value || false,
+        pretest: document.querySelector('[name="pretest"]').checked,
+        posttest: document.querySelector('[name="posttest"]').checked,
+        interactive: document.querySelector('[name="interactive"]').checked
+    };
+}
+</script>

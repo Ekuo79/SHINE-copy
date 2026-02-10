@@ -20,6 +20,37 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/dark-mode.css' %}">
+
+    <!-- Yes/No Button Styling -->
+    <style>
+        .yes-no-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            min-width: 80px;
+            font-size: 0.875rem;
+        }
+
+        .yes-no-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .yes-no-btn.active[data-value="yes"] {
+            background: #10b981;
+            border-color: #059669;
+            color: white;
+        }
+
+        .yes-no-btn.active[data-value="no"] {
+            background: #ef4444;
+            border-color: #dc2626;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -94,54 +125,324 @@
         <div class="container">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold mb-4 text-neutral-900">How It Works</h2>
-                <p class="text-lg text-neutral-600">Our simple verification process ensures your training meets industry standards</p>
+                <p class="text-lg text-neutral-600">Our simple self-assessment process ensures your training meets industry standards</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <!-- Step 1 -->
                 <div class="text-center">
                     <div class="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
-                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Submit Your Training</h3>
-                    <p class="text-neutral-600">Contact us with your training materials and program details for initial review.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Complete the Survey</h3>
+                    <p class="text-neutral-600">Fill out our self-reported assessment survey below about your training program's features and content.</p>
                 </div>
-                
+
                 <!-- Step 2 -->
                 <div class="text-center">
                     <div class="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
-                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Expert Assessment</h3>
-                    <p class="text-neutral-600">Our team evaluates your training against comprehensive criteria for effectiveness.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Instant Scoring</h3>
+                    <p class="text-neutral-600">Your responses are automatically scored in real-time. A minimum of 18 points is required to pass.</p>
                 </div>
-                
+
                 <!-- Step 3 -->
                 <div class="text-center">
                     <div class="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
-                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Get Verified</h3>
-                    <p class="text-neutral-600">Receive your verification status and detailed feedback on your training program.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-900">Get Listed</h3>
+                    <p class="text-neutral-600">If your training passes, it will be reviewed by our team. Once approved, it will be added to our verified list and displayed on the site!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Survey Section -->
     <section class="py-20 bg-white">
         <div class="container">
-            <div class="max-w-4xl mx-auto">
+            <div class="max-w-5xl mx-auto">
                 <div class="card">
-                    <div class="card-body text-center p-8">
+                    <div class="card-body p-8">
                         <div class="w-20 h-20 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-envelope text-secondary-600 text-3xl"></i>
+                            <i class="fas fa-clipboard-check text-secondary-600 text-3xl"></i>
                         </div>
-                        <h2 class="text-3xl font-bold mb-6 text-neutral-900">Ready to Get Started?</h2>
-                        <p class="text-lg text-neutral-600 mb-8 leading-relaxed">
-                            To have your training assessed on our platform, please contact us directly at <br>SHINE@floridainnovation.org<br><br> We'll guide you through the process and answer any questions you may have about our verification criteria.
+                        <h2 class="text-3xl font-bold mb-4 text-center text-neutral-900">Training Assessment Survey</h2>
+                        <p class="text-lg text-neutral-600 mb-8 text-center">
+                            Complete this self-assessment to see if your training qualifies. A minimum score of <strong>18 points</strong> is required to pass.
                         </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <a href="mailto:SHINE@floridainnovation.org" class="btn btn-primary btn-lg">
-                                <i class="fas fa-envelope mr-2"></i>Contact Us Now
-                            </a>
-                            <div class="text-neutral-600">
-                                <i class="fas fa-phone mr-2"></i>407-562-7793
+
+                        <!-- Score Display -->
+                        <div class="bg-primary-50 p-6 rounded-lg mb-8 text-center">
+                            <div class="text-4xl font-bold text-primary-600 mb-2">
+                                <span id="current-score">0</span> / 21 points
                             </div>
+                            <div class="text-sm text-neutral-600">
+                                <span id="score-status">You need 18 points to pass</span>
+                            </div>
+                        </div>
+
+                        <form id="survey-form">
+                            {% csrf_token %}
+                            <!-- Company Information -->
+                            <div class="mb-10">
+                                <h3 class="text-2xl font-semibold mb-6 text-neutral-900 border-b pb-3">Company Information</h3>
+
+                                <div class="mb-6">
+                                    <label class="block text-neutral-700 font-semibold mb-2">Company/Training Provider Name *</label>
+                                    <input type="text" name="company_name" required
+                                        class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                </div>
+
+                                <div class="mb-6">
+                                    <label class="block text-neutral-700 font-semibold mb-2">About Your Training Program *</label>
+                                    <textarea name="company_about" required rows="5"
+                                        class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                        placeholder="Describe your anti-human trafficking training program..."></textarea>
+                                </div>
+
+                                <div class="mb-6">
+                                    <label class="block text-neutral-700 font-semibold mb-2">Contact Email *</label>
+                                    <input type="email" name="contact_email" required
+                                        class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                </div>
+
+                                <div class="mb-6">
+                                    <label class="block text-neutral-700 font-semibold mb-2">Languages Supported (comma-separated)</label>
+                                    <input type="text" name="languages"
+                                        class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                        placeholder="e.g., English, Spanish, French">
+                                </div>
+                            </div>
+
+                            <!-- 1 Point Features -->
+                            <div class="mb-10">
+                                <h3 class="text-2xl font-semibold mb-6 text-neutral-900 border-b pb-3">
+                                    1 Point Features <span class="text-sm font-normal text-neutral-600">(1 point each)</span>
+                                </h3>
+
+                                <div class="space-y-4">
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Survivor Accounts</div>
+                                                <div class="text-sm text-neutral-600">Does the training include first-hand accounts or case studies shared by survivors?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="survivor_accounts" data-value="yes" data-points="1">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="survivor_accounts" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Tailored Content</div>
+                                                <div class="text-sm text-neutral-600">Is the content customized for specific roles (e.g., housekeeping vs. front desk vs. security)?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="tailored_content" data-value="yes" data-points="1">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="tailored_content" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Statistics</div>
+                                                <div class="text-sm text-neutral-600">Does the training provide verified data, facts, and current statistics on trafficking?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="statistics" data-value="yes" data-points="1">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="statistics" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2 Point Features -->
+                            <div class="mb-10">
+                                <h3 class="text-2xl font-semibold mb-6 text-neutral-900 border-b pb-3">
+                                    2 Point Features <span class="text-sm font-normal text-neutral-600">(2 points each)</span>
+                                </h3>
+
+                                <div class="space-y-4">
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Victim-Focused</div>
+                                                <div class="text-sm text-neutral-600">Is the primary focus of the training on the well-being and safety of the victim rather than the perpetrator?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="victim_focused" data-value="yes" data-points="2">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="victim_focused" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Risk Reduction</div>
+                                                <div class="text-sm text-neutral-600">Does the training explicitly instruct employees not to intervene personally but to contact authorities instead?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="risk_reduction" data-value="yes" data-points="2">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="risk_reduction" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Partnerships</div>
+                                                <div class="text-sm text-neutral-600">Does the training mention or involve partnerships with vetted anti-trafficking NGOs or shelters?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="partnerships" data-value="yes" data-points="2">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="partnerships" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3 Point Features -->
+                            <div class="mb-10">
+                                <h3 class="text-2xl font-semibold mb-6 text-neutral-900 border-b pb-3">
+                                    3 Point Features <span class="text-sm font-normal text-neutral-600">(3 points each)</span>
+                                </h3>
+
+                                <div class="space-y-4">
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Overall Definition</div>
+                                                <div class="text-sm text-neutral-600">Does the training provide clear definitions, real crime scene photos, and comprehensive examples of what trafficking is?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="overall_definition" data-value="yes" data-points="3">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="overall_definition" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Trafficking Signs</div>
+                                                <div class="text-sm text-neutral-600">Does it list specific indicators (e.g., constant supervision of guests, excessive trash, denial of cleaning, multiple guests in one room)?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="trafficking_signs" data-value="yes" data-points="3">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="trafficking_signs" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Law Enforcement</div>
+                                                <div class="text-sm text-neutral-600">Is there a clear protocol for reporting to law enforcement, including what details to record (room numbers, descriptions, timestamps)?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="law_enforcement" data-value="yes" data-points="3">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="law_enforcement" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 border-2 border-neutral-200 rounded-lg hover:bg-neutral-50 transition">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-neutral-900">Legal Regulations</div>
+                                                <div class="text-sm text-neutral-600">Does it cover the legalities of the crime, the risks of "wrongful suspicion," and how to handle a potentially complicit employee?</div>
+                                            </div>
+                                            <div class="flex gap-2 ml-4">
+                                                <button type="button" class="yes-no-btn" data-name="legal_regulations" data-value="yes" data-points="3">
+                                                    <i class="fas fa-check"></i> Yes
+                                                </button>
+                                                <button type="button" class="yes-no-btn" data-name="legal_regulations" data-value="no">
+                                                    <i class="fas fa-times"></i> No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Features -->
+                            <div class="mb-10">
+                                <h3 class="text-2xl font-semibold mb-6 text-neutral-900 border-b pb-3">Additional Features</h3>
+
+                                <div class="space-y-4">
+                                    <label class="flex items-center p-4 border-2 border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-50 transition">
+                                        <input type="checkbox" name="pretest"
+                                            class="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500">
+                                        <div class="ml-4 font-semibold text-neutral-900">Pretest (baseline knowledge assessment)</div>
+                                    </label>
+
+                                    <label class="flex items-center p-4 border-2 border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-50 transition">
+                                        <input type="checkbox" name="posttest"
+                                            class="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500">
+                                        <div class="ml-4 font-semibold text-neutral-900">Posttest (knowledge verification)</div>
+                                    </label>
+
+                                    <label class="flex items-center p-4 border-2 border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-50 transition">
+                                        <input type="checkbox" name="interactive"
+                                            class="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500">
+                                        <div class="ml-4 font-semibold text-neutral-900">Interactive training (scenarios, role-playing, etc.)</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" id="submit-btn" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-paper-plane mr-2"></i>Submit Assessment
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Result Message -->
+                        <div id="result-message" class="mt-8 hidden">
+                            <div id="result-content" class="p-6 rounded-lg text-center"></div>
                         </div>
                     </div>
                 </div>
@@ -292,48 +593,48 @@
         const mobileDarkModeToggle = document.getElementById('mobileDarkModeToggle');
         const darkModeIcon = document.getElementById('darkModeIcon');
         const mobileDarkModeIcon = document.getElementById('mobileDarkModeIcon');
-        
+
         // Check for saved theme preference or default to light mode
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);
-        
+
         // Update icons based on current theme
         function updateIcons(theme) {
             const iconClass = theme === 'dark' ? 'fa-sun' : 'fa-moon';
             darkModeIcon.className = `fas ${iconClass}`;
             mobileDarkModeIcon.className = `fas ${iconClass}`;
         }
-        
+
         updateIcons(currentTheme);
-        
+
         // Toggle dark mode function
         function toggleDarkMode() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateIcons(newTheme);
         }
-        
+
         // Add event listeners
         darkModeToggle.addEventListener('click', toggleDarkMode);
         mobileDarkModeToggle.addEventListener('click', toggleDarkMode);
-        
+
         // Mobile menu toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
-        
+
         mobileMenuToggle.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
             const icon = mobileMenuToggle.querySelector('i');
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-times');
         });
-        
+
         // Header scroll effect
         const header = document.getElementById('header');
-        
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
                 header.classList.add('scrolled');
@@ -341,7 +642,7 @@
                 header.classList.remove('scrolled');
             }
         });
-        
+
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
@@ -351,6 +652,215 @@
                 icon.classList.remove('fa-times');
             }
         });
+
+        // Survey Form Functionality
+        const surveyResponses = {};
+        const currentScoreElement = document.getElementById('current-score');
+        const scoreStatusElement = document.getElementById('score-status');
+        const surveyForm = document.getElementById('survey-form');
+        const resultMessage = document.getElementById('result-message');
+        const resultContent = document.getElementById('result-content');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Handle Yes/No button clicks
+        document.querySelectorAll('.yes-no-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const name = this.dataset.name;
+                const value = this.dataset.value;
+                const points = parseInt(this.dataset.points) || 0;
+
+                // Find sibling buttons for this question
+                const parent = this.closest('.flex.gap-2');
+                const siblings = parent.querySelectorAll('.yes-no-btn');
+
+                // Remove active class from all siblings
+                siblings.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                // Store response
+                if (value === 'yes') {
+                    surveyResponses[name] = {value: true, points: points};
+                } else {
+                    surveyResponses[name] = {value: false, points: 0};
+                }
+
+                // Update score
+                updateScore();
+            });
+        });
+
+        // Calculate and update score in real-time
+        function updateScore() {
+            let totalScore = 0;
+
+            // Add up points from Yes/No buttons
+            Object.values(surveyResponses).forEach(response => {
+                if (response.value) {
+                    totalScore += response.points;
+                }
+            });
+
+            // Add points from checkboxes (Additional Features)
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                // These checkboxes don't have points, they're just metadata
+            });
+
+            currentScoreElement.textContent = totalScore;
+
+            // Update status message
+            if (totalScore >= 18) {
+                scoreStatusElement.innerHTML = '<span style="color: #10b981; font-weight: bold;"><i class="fas fa-check-circle"></i> Your training qualifies!</span>';
+            } else {
+                const needed = 18 - totalScore;
+                scoreStatusElement.textContent = `You need ${needed} more point${needed !== 1 ? 's' : ''} to pass`;
+            }
+
+            return totalScore;
+        }
+
+        // Handle form submission
+        surveyForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validate all questions are answered
+            const requiredQuestions = [
+                'survivor_accounts',
+                'tailored_content',
+                'statistics',
+                'victim_focused',
+                'risk_reduction',
+                'partnerships',
+                'overall_definition',
+                'trafficking_signs',
+                'law_enforcement',
+                'legal_regulations'
+            ];
+
+            const unansweredQuestions = requiredQuestions.filter(q => !surveyResponses.hasOwnProperty(q));
+
+            if (unansweredQuestions.length > 0) {
+                resultMessage.classList.remove('hidden');
+                resultContent.className = 'p-6 rounded-lg text-center bg-error-100 border-2 border-error-500';
+                resultContent.innerHTML = `
+                    <i class="fas fa-exclamation-circle text-error-600 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold text-error-900 mb-3">Incomplete Survey</h3>
+                    <p class="text-error-700">Please answer all ${requiredQuestions.length} yes/no questions before submitting.</p>
+                    <p class="text-sm text-error-600 mt-2">You have ${unansweredQuestions.length} unanswered question${unansweredQuestions.length !== 1 ? 's' : ''}.</p>
+                `;
+                resultMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // Get form data
+            const formData = new FormData(surveyForm);
+            const data = {
+                company_name: formData.get('company_name'),
+                company_about: formData.get('company_about'),
+                contact_email: formData.get('contact_email'),
+                languages: formData.get('languages') || '',
+                survivor_accounts: surveyResponses.survivor_accounts?.value || false,
+                tailored_content: surveyResponses.tailored_content?.value || false,
+                statistics: surveyResponses.statistics?.value || false,
+                victim_focused: surveyResponses.victim_focused?.value || false,
+                risk_reduction: surveyResponses.risk_reduction?.value || false,
+                partnerships: surveyResponses.partnerships?.value || false,
+                overall_definition: surveyResponses.overall_definition?.value || false,
+                trafficking_signs: surveyResponses.trafficking_signs?.value || false,
+                law_enforcement: surveyResponses.law_enforcement?.value || false,
+                legal_regulations: surveyResponses.legal_regulations?.value || false,
+                pretest: formData.get('pretest') === 'on',
+                posttest: formData.get('posttest') === 'on',
+                interactive: formData.get('interactive') === 'on'
+            };
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+
+            try {
+                // Get CSRF token
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value ||
+                                getCookie('csrftoken');
+
+                const response = await fetch('/apply/submit-survey/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                // Show result
+                resultMessage.classList.remove('hidden');
+
+                if (result.success) {
+                    if (result.passed) {
+                        resultContent.className = 'p-6 rounded-lg text-center bg-success-100 border-2 border-success-500';
+                        resultContent.innerHTML = `
+                            <i class="fas fa-check-circle text-success-600 text-5xl mb-4"></i>
+                            <h3 class="text-2xl font-bold text-success-900 mb-3">Congratulations!</h3>
+                            <p class="text-lg text-success-800 mb-4">Your training passed with a score of <strong>${result.score}/21 points</strong>!</p>
+                            <p class="text-success-700">${result.message}</p>
+                            <p class="text-success-700 mt-4"><strong>Note:</strong> Your submission is pending admin review. Once approved, it will be added to our verified list.</p>
+                        `;
+                    } else {
+                        resultContent.className = 'p-6 rounded-lg text-center bg-warning-100 border-2 border-warning-500';
+                        resultContent.innerHTML = `
+                            <i class="fas fa-exclamation-triangle text-warning-600 text-5xl mb-4"></i>
+                            <h3 class="text-2xl font-bold text-warning-900 mb-3">Almost There!</h3>
+                            <p class="text-lg text-warning-800 mb-4">Your training scored <strong>${result.score}/21 points</strong>.</p>
+                            <p class="text-warning-700">${result.message}</p>
+                            <p class="text-warning-700 mt-4">Please review the criteria and consider enhancing your training program to meet the minimum requirements.</p>
+                            <div class="mt-6">
+                                <button onclick="location.reload()" class="btn btn-warning">
+                                    <i class="fas fa-redo mr-2"></i>Try Again
+                                </button>
+                            </div>
+                        `;
+                    }
+
+                    // Scroll to result
+                    resultMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    throw new Error(result.error || 'Submission failed');
+                }
+            } catch (error) {
+                resultMessage.classList.remove('hidden');
+                resultContent.className = 'p-6 rounded-lg text-center bg-error-100 border-2 border-error-500';
+                resultContent.innerHTML = `
+                    <i class="fas fa-times-circle text-error-600 text-5xl mb-4"></i>
+                    <h3 class="text-2xl font-bold text-error-900 mb-3">Submission Error</h3>
+                    <p class="text-error-700">There was an error submitting your assessment. Please try again.</p>
+                    <p class="text-sm text-error-600 mt-2">${error.message}</p>
+                `;
+                resultMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Submit Assessment';
+            }
+        });
+
+        // Helper function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
     </script>
 </body>
 </html>
